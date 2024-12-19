@@ -6,7 +6,6 @@
     //Es el limite superior de los rangos
 
     const camis = [
-
       /* Paises */
       [180, 0x333A3C, 0xEFF6FC, 0xBBE3F4, 0xEFF6FC],
       [60, 0xFCFDFD, 0x2D3135],

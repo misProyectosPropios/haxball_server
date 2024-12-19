@@ -368,8 +368,6 @@
       "EXIT_METHOD"     : 10
     }
 
-    
-
     const Roles = {
       "JUGADOR" : 0,
       "ADMIN"   : 1
@@ -715,110 +713,6 @@
       return this.#searchID_blue(id) != -1 || this.#searchID_red(id) != -1 || this.#searchID_spect(id) != -1;
     }
   }
-
-    //Class to have the list of players
-    class List_of_players {
-      #list; //array of players
-
-    /**
-      * Create a new player's list
-      */
-      constructor() {
-        this.#list = new Array();
-      }
-
-    /**
-      * Returns the private list with alising.
-      * @returns {this.#list}
-      */
-      get list() {
-        return this.#list;
-      }
-
-    /**
-      * Add a player into the list of players to the end
-      * @param {player} Player - The player's ID.
-      * @returns {void}
-      */
-      addPlayer(player) {
-        this.#list.push(player)
-      }
-
-      /**
-      * If the index is in range, returns the player stored in that position
-      * @param {index} int - The player's ID. Requires: needs to be in range
-      * @returns {this.#list[index]}
-      */
-      #getPlayer(index) {
-        if (index >= 0 && index < this.#list.length) {
-          return this.#list[index]
-        }
-      }
-
-      /**
-      * If a player has that id, it will return the player object with such id
-      * @param {id} int - The player's ID. Requires: needs to be in range
-      * @returns {EXISTS i: Z : (0 <= i < |this.#list| && this.#list.id == id && res = this.#list[i])}
-      */
-      getPlayerByID(id) {
-        let index = this.#searchID(id);
-        return this.#getPlayer(index);
-      }
-
-    /**
-      * If a player has that id, it will return the player object with such id
-      * @returns {(EXISTS i: Z)(0 <= i < |this.#list| && this.#list.id = id && res = i) || 
-      *           ((- (EXISTS i: Z)(0 <= i < |this.#list| && this.#list.id = id && res = i)) && res = -1)}
-      */
-      #searchID(id) {
-        let index = -1;
-        for(let i = 0; i < this.#list.length; i++) {
-          if (this.#list[i].id == id) {
-            index = i;
-            break;
-          }
-        }
-        return index;
-      }
-
-      /**
-      * Removes the element from the indicated index
-      * @param {player} Player - The player's ID.
-      * @returns {void}
-      */
-      #removePlayer(index) {
-        if (index >= 0 && index < this.#list.length) {
-          this.#list.splice(index, 1);
-        }
-      }
-
-      /**
-      * Removes the element from the indicated index
-      * @param {id} int - The player's ID.
-      * @returns {void}
-      */
-      removePlayerByID(id) {
-        //Search where is the ID
-        let index = this.#searchID(id)
-        //Remove the index. If there was no matches, it will be -1 and it will not delete nothing
-        this.#removePlayer(index)
-      }
-      /**
-       * Returns the auth of the player
-       * @param {int} id - The player's id
-       * @returns {string} The player's auth store in
-       */
-      getPlayerAuthByID(id) {
-        //console.log("Estamos dentro del getPlayerAuth")
-        let index = this.#searchID(id)
-        //console.log(index);
-        if (index != undefined && index != -1) {
-          return this.#list[index].auth;
-        } 
-        return undefined;
-      }
-
-    }
 
     class DiccionarioJugadores {
       #jugadores

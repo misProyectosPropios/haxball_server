@@ -882,8 +882,12 @@
           this.name = name;
           this.authorization = Roles.JUGADOR;
           this.afk = false;
+          console.log(LocalStorage.existsData(auth))
+          console.log(auth);
           if (LocalStorage.existsData(auth)) {
-            let valores = LocalStorage.getData(id);
+            console.log("Estando en el constructor dentro del if")
+            let valores = LocalStorage.getData(auth);
+            console.log(valores);
             this.matches_played = valores.matches_played;
             this.won_matches = valores.won_matches;
             this.lost_matches = valores.lost_matches;
@@ -893,6 +897,7 @@
             this.mvp = valores.mvp;
             this.vallas = valores.vallas;
           } else {
+            console.log("Estando en el constructor dentro del else")
             this.matches_played = 0;
             this.won_matches = 0;
             this.lost_matches = 0;
@@ -1486,7 +1491,11 @@
     class LocalStorage {
 
       static existsData(auth) {
-        return !localStorage.getItem(auth) === null
+        console.log("En existsData")
+        console.log(localStorage.getItem(auth))
+        console.log(localStorage.getItem(auth) === null);
+        console.log(!(localStorage.getItem(auth) === null));
+        return !(localStorage.getItem(auth) === null);
       }
 
       static storeData(auth, playerStats) {
@@ -1495,7 +1504,7 @@
 
       static getData(auth) {
         if (this.existsData(auth)) {
-          return localStorage.getItem(auth)
+          return JSON.parse(JSON.parse(localStorage.getItem(auth)));
         }
         
       }

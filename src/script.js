@@ -646,11 +646,10 @@
 
             console.log(this)
             cantActivos = this.#calcularGenteActivaEnSpect();
+            this.balanceTeams();
           }
           //this.balanceTeams(); //Ya no hay jugadores esperando o esta completo el juego
-      } 
-      
-      if (diferenciaEntreEquipos > 1) {
+      } else if (diferenciaEntreEquipos > 1) {
         write("Caso los equipos estan desbalanceados...", Log.IF_LOG);
         //Mover a los jugadores entre los equipos. Ya asumo que no hay jugadores esperando y no esta lleno
         if (this.redLength > this.blueLength) {
@@ -670,7 +669,7 @@
             diferenciaEntreEquipos = this.#calcularDiferenciaEntreEquipos();
           }
         }
-        //this.balanceTeams();
+        this.balanceTeams();
       }
       write("Leaving game.balanceTeams", Log.EXIT_METHOD);
     } 
@@ -1851,7 +1850,7 @@
     const roomName = "💊  gana sigue x4 - PastiBall 💊";
     const claveAdmin = "ancelotti";
     const maxPlayers = 15;
-    const isPublic = false;
+    const isPublic = true;
     const noPlayer = true;
 
     var room = HBInit({
@@ -1881,7 +1880,7 @@
                                    Log.EXIT_METHOD
     ]);
 
-    var max_player_in_teams = 2;
+    var max_player_in_teams = 4;
     var sala = new Game(max_player_in_teams);
     var ballTouched = new colaConLimit(2);
     var estadisticasPartido = new estadisticasPorPartido();
@@ -2338,9 +2337,7 @@
 
       function tienePermisos(id) {
         return lista_de_jugadores.getPlayerByID(id).authorization > 0;
-      }
-
-      
+      }      
 
       /**
        * Returns a random integer between min (inclusive) and max (inclusive).

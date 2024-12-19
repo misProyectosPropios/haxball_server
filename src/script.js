@@ -1791,12 +1791,6 @@
     var diccJugadores = new DiccionarioJugadores();
     var gks = new GoalKeeper();
     var camisetasEquipos = new Camisetas();
-
-
-    var lista_de_jugadores = new List_of_players();
-    
-    
-    var playerStats = new statsTeams(sala, lista_de_jugadores); //stats
     var stats = new statsPlayers();
     //var estadisticasDelPartido = new matchStats();
 
@@ -1994,8 +1988,8 @@
       let teamPlayerAsistencia = idAsistencia != null ? room.getPlayer(idAsistencia).team : null;
       
       //Obtengamos cual es su auth
-      let authGol = lista_de_jugadores.getPlayerAuthByID(idGol);
-      let authAsistencia = idAsistencia != null ? lista_de_jugadores.getPlayerAuthByID(idAsistencia) : null;
+      let authGol = diccJugadores.getJugador(idGol).auth;
+      let authAsistencia = idAsistencia != null ? diccJugadores.getJugador(idAsistencia).auth : null;
       
       if (teamPlayerGoal == team && teamPlayerGoal == teamPlayerAsistencia) {
         if (authGol == authAsistencia) {
@@ -2239,7 +2233,7 @@
       }
 
       function tienePermisos(id) {
-        return lista_de_jugadores.getPlayerByID(id).authorization > 0;
+        return diccJugadores.getJugador(id).authorization > 0;
       }
 
       

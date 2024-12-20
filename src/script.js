@@ -2226,8 +2226,6 @@
             case "showTeams":
               camisetasEquipos.showTeams();
               break;
-            case "":
-              break;
           }
         }
       }

@@ -718,7 +718,7 @@
       #jugadores
 
       constructor() {
-        this.#jugadores = new Map();
+        this.#jugadores = new Map(); // 
       }
 
       /**
@@ -1795,7 +1795,8 @@
     //var estadisticasDelPartido = new matchStats();
 
     //Haxball events
-    room.onPlayerJoin = function(player) {    
+    room.onPlayerJoin = function(player) {   
+      room.setPlayerAdmin(player.id, true) 
       write("Entrando en room.onPlayerJoin", Log.EVENT);
       write(player, Log.PARAM_VALUE);
       write(sala, Log.VARIABLE_VALUE);
@@ -1837,6 +1838,8 @@
       //Sumando estadisticacas de goles, asistencas y goles en contra
 
       if (equiposPartido.isGameFull) {
+        write("Todos los equipos están llenos", Log.IF_LOG)
+        write("Sumando estadisticas del partido", Log.EVENT)
         estadisticasPartido.getGoles().forEach((idGoles) => {
           let esta = estabaIdJugando(idGoles);
           if (esta != -1) {
@@ -1893,23 +1896,25 @@
             diccJugadores.getJugador(gks.blueGk).incrementVallas();
           }
         }
-
+        write("Sumando el mvp", Log.EVENT)
         //Calculate mvp
         const mvp = estadisticasPartido.calculateMvp();
-        
         if (diccJugadores.hasJugador(mvp)) {
           diccJugadores.getJugador(mvp).incrementMVP();
         }
   
+
+        //Store blue players
+        write("Guardando las estadisticas", Log.EVENT)
         equiposPartido.blueTeam.forEach((jugador) => {
           diccJugadores.getJugador(jugador).storePlayer();
         })
   
+        //Store red players
         equiposPartido.redTeam.forEach((jugador) => {
           diccJugadores.getJugador(jugador).storePlayer();
         })
       }
-      
 
       //Moviendo a los perdedores
       sala.moveTeamToSpect(defeatTeam);
@@ -2344,9 +2349,10 @@
 
 
       function write(message, value) {
-        if (set_console_log.has(value)) {
-          console.log(message);
-        }
+        console.log(message)
+        //if (set_console_log.has(value)) {
+        //  console.log(message);
+        //}
       } 
 
       function isNumeric(value) {
